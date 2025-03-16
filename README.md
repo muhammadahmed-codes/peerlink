@@ -34,10 +34,3 @@ npm run dev
 
 ## Build as an electron app for MacOS/Windows
 To be released soon.
-
-3. Create an electron app.
-```bash
-npx electron-builder
-```
-
-3. 
