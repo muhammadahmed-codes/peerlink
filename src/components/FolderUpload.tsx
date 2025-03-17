@@ -1,127 +1,109 @@
-import type React from "react"
-
-import { useState, useRef, useCallback } from "react"
-import { FolderUp, File, X, Check, Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/Progress"
-import { Card, CardContent } from "@/components/ui/card"
-import { ToastContainer, toast } from 'react-toastify';
+import type React from "react";
+import { useState, useRef, useCallback } from "react";
+import { FolderUp, File, X, Check, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/Progress";
+import { Card, CardContent } from "@/components/ui/card";
+import { ToastContainer, toast } from "react-toastify";
 
 interface FileWithPath extends File {
-  webkitRelativePath: string
+  webkitRelativePath: string;
 }
 
 interface UploadedFile {
-  name: string
-  path: string
-  size: number
-  status: "pending" | "uploading" | "success" | "error"
-  progress: number
+  file: File; // Store the actual file
+  name: string;
+  path: string;
+  size: number;
+  status: "pending" | "uploading" | "success" | "error";
+  progress: number;
 }
 
+
 export function FolderUpload() {
-  const [files, setFiles] = useState<UploadedFile[]>([])
-  const [isUploading, setIsUploading] = useState(false)
-  const [overallProgress, setOverallProgress] = useState(0)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const [files, setFiles] = useState<UploadedFile[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [overallProgress, setOverallProgress] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files
-    if (!fileList || fileList.length === 0) return
+    const fileList = e.target.files;
+    if (!fileList || fileList.length === 0) return;
 
-    const newFiles: UploadedFile[] = []
+    const newFiles: UploadedFile[] = [];
 
     for (let i = 0; i < fileList.length; i++) {
-      const file = fileList[i] as FileWithPath
+      const file = fileList[i] as FileWithPath;
       newFiles.push({
+        file, // Store the actual file
         name: file.name,
         path: file.webkitRelativePath,
         size: file.size,
         status: "pending",
         progress: 0,
-      })
+      });
     }
 
-    setFiles(newFiles)
-  }
+    setFiles(newFiles);
+  };
 
   const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-
-    // Unfortunately, we can't directly access the folder structure from a drop event
-    // We'll show a message to use the folder input instead
-    toast.info("Please use the 'Choose Folder' button")
-  }, [])
+    e.preventDefault();
+    e.stopPropagation();
+    toast.info("Please use the 'Choose Folder' button");
+  }, []);
 
   const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-  }, [])
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
 
   const uploadFiles = async () => {
-    if (files.length === 0 || isUploading) return
+    if (files.length === 0 || isUploading) return;
 
-    setIsUploading(true)
+    setIsUploading(true);
+    const formData = new FormData();
 
-    // Create a copy of files to update their status
-    const updatedFiles = [...files]
-
-    // Process each file
-    for (let i = 0; i < updatedFiles.length; i++) {
-      const file = updatedFiles[i]
-
-      try {
-        // Update status to uploading
-        updatedFiles[i] = { ...file, status: "uploading" }
-        setFiles([...updatedFiles])
-
-        // Simulate upload progress
-        for (let progress = 0; progress <= 100; progress += 5) {
-          // Update file progress
-          updatedFiles[i] = { ...updatedFiles[i], progress }
-          setFiles([...updatedFiles])
-
-          // Calculate overall progress
-          const totalProgress = updatedFiles.reduce((sum, file) => sum + file.progress, 0) / updatedFiles.length
-          setOverallProgress(totalProgress)
-
-          // Wait a bit to simulate network delay
-          await new Promise((resolve) => setTimeout(resolve, 100))
-        }
-
-        // Mark as success
-        updatedFiles[i] = { ...updatedFiles[i], status: "success", progress: 100 }
-        setFiles([...updatedFiles])
-      } catch (error) {
-        // Mark as error
-        updatedFiles[i] = { ...updatedFiles[i], status: "error", progress: 0 }
-        setFiles([...updatedFiles])
-
-        toast.error(`Failed to upload ${file.name}`)
-      }
+    for (let fileObj of files) {
+      formData.append("files", fileObj.file, fileObj.path); // Use `fileObj.file`
     }
 
-    setIsUploading(false)
+    try {
+      console.log("📤 Sending files to server...");
+      const response = await fetch("http://127.0.0.1:5001/upload-folder", {
+        method: "POST",
+        body: formData,
+      });
 
-    toast.success(`Successfully uploaded ${updatedFiles.filter((f) => f.status === "success").length} of ${updatedFiles.length} files`)
-  }
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Upload failed");
+      }
+      toast.success(data.message || "Files uploaded successfully!");
+    } catch (error: any) {
+      console.error("❌ Upload Error:", error);
+      toast.error("Failed to upload files.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
 
   const clearFiles = () => {
-    setFiles([])
-    setOverallProgress(0)
+    setFiles([]);
+    setOverallProgress(0);
     if (inputRef.current) {
-      inputRef.current.value = ""
+      inputRef.current.value = "";
     }
-  }
+  };
 
   const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return "0 Bytes"
-    const k = 1024
-    const sizes = ["Bytes", "KB", "MB", "GB"]
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-    return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
-  }
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  };
 
   return (
     <div className="space-y-4">
@@ -136,15 +118,12 @@ export function FolderUpload() {
             <FolderUp className="h-10 w-10 mx-auto mb-4 text-muted-foreground" />
             <h3 className="text-lg font-medium mb-2">Choose a folder to upload</h3>
             <p className="text-sm text-muted-foreground mb-4">Click to browse or drag and drop your folder here</p>
-            <Button variant="outline" className="mx-auto">
-              Choose Folder
-            </Button>
+            <Button variant="outline" className="mx-auto">Choose Folder</Button>
             <input
               ref={inputRef}
               type="file"
               className="hidden"
-              {...({ webkitdirectory: '', directory: '' } as any)} // Bypass TypeScript error
-              directory=""
+              {...({ webkitdirectory: "", directory: "" } as any)}
               multiple
               onChange={handleFileChange}
             />
@@ -181,7 +160,6 @@ export function FolderUpload() {
               </Button>
             </div>
           </div>
-
           {isUploading && (
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
@@ -191,7 +169,6 @@ export function FolderUpload() {
               <Progress value={overallProgress} className="h-2" />
             </div>
           )}
-
           <div className="border rounded-lg divide-y max-h-[400px] overflow-y-auto">
             {files.map((file, index) => (
               <div key={index} className="p-3 flex items-center text-sm">
@@ -224,7 +201,7 @@ export function FolderUpload() {
           </div>
         </div>
       )}
-      <ToastContainer/>
+      <ToastContainer />
     </div>
-  )
+  );
 }

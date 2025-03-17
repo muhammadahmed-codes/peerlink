@@ -23,8 +23,8 @@ export default function Configure() {
     return (
         <>
             <DashboardLayout>
-                <h1 style={{ fontWeight: 'bold', fontSize: 30 }}>Configuration</h1>
-                    <Card className="w-[350px] mt-5">
+                <h1 style={{ fontWeight: 'bold', fontSize: 30, marginBottom: 20 }}>Configuration</h1>
+                    {/* <Card className="w-[350px] mt-5">
                         <CardHeader>
                             <CardTitle>Create project</CardTitle>
                             <CardDescription>Deploy your new project in one-click.</CardDescription>
@@ -57,7 +57,7 @@ export default function Configure() {
                             <Button variant="outline">Cancel</Button>
                             <Button>Deploy</Button>
                         </CardFooter>
-                    </Card>
+                    </Card> */}
                     <div className="grid w-full max-w-sm items-center gap-1.5">
                         <FolderUpload />
                     </div>
