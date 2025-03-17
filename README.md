@@ -17,20 +17,38 @@ DB_NAME=
 AUTH_ROUTE=
 ```
 
-2. Run this command in /api directory as well as the root directory.
+2. Run this command in the /api directory as well as the root directory.
 ```bash
 npm install --legacy-peer-deps 
 ```
 
-3. Run this command in /api directory
+3. Run this command in the /api directory
 ```bash
 npm start
 ```
 
-4. Run this command in root directory
+4. Run these commands in the root directory
 ```bash
 npm run dev
+pip install flask
+python server.py
 ```
 
 ## Build as an electron app for MacOS/Windows
-To be released soon.
+Note: Same steps can be used for both aformentioned platforms.
+
+1. Follow steps 1, 2 and 3 from the section above.
+
+2. Run these commands in the root directory
+```bash
+pip install flask
+python server.py
+```
+
+4. Run these commands in the root directory.
+```bash
+npm run build
+npx electron-builder
+```
+3. Now, go to /releases folder and run the .dmg file to install your app.
+
