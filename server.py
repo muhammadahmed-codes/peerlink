@@ -1,16 +1,17 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
+import subprocess
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for frontend requests
+CORS(app)
 
 UPLOAD_FOLDER = "uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure main upload folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure the uploads directory exists
 
 @app.route("/upload-folder", methods=["POST"])
 def upload_folder():
-    requirements_exist = False  # Corrected variable name
+    requirements_exist = False  # Track if requirements.txt is uploaded
 
     if "files" not in request.files:
         return jsonify({"message": "No files uploaded"}), 400
@@ -34,5 +35,32 @@ def upload_folder():
     
     return jsonify({"message": "Folder uploaded but requirements.txt is missing"}), 200
 
+
+@app.route("/uploaded-files", methods=["GET"])
+def get_uploaded_files():
+    try:
+        # Check if the upload folder exists
+        if not os.path.exists(UPLOAD_FOLDER):
+            return jsonify({"message": "Upload folder does not exist"}), 404
+
+        # Get the list of files in the uploads folder (including subdirectories)
+        files = []
+        for root, _, filenames in os.walk(UPLOAD_FOLDER):
+            for filename in filenames:
+                # Store relative file paths
+                file_path = os.path.relpath(os.path.join(root, filename), UPLOAD_FOLDER)
+                files.append(file_path)
+
+        return jsonify({"files": files}), 200
+
+    except Exception as e:
+        return jsonify({"message": "Error reading files", "error": str(e)}), 500
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    process = subprocess.Popen('../../dicedb-cli/dicedb-cli', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+    process.stdin.write('SET k v\n')
+    process.stdin.write('GET k\n')
+    process.stdin.flush()  # Ensure commands are sent
+    
+    # app.run(host="0.0.0.0", port=5001, debug=True)
