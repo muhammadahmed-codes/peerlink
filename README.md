@@ -1,54 +1,36 @@
-# React + TypeScript + Vite
+# PeerLink
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Motivation
+An ambitious project, simplifying remote and distributive code execution on multiple platform to increase execution speed, cut cost in terms of time and resources, offering efficiency. A proof-of-concept or minimal viable project is currently under design and will be showcased once pre-requisite milestones are reached.
 
-Currently, two official plugins are available:
+## Run as development build on Vite
+Note: Same steps can be used for both aformentioned platforms.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Create a .env file in /api directory (located just oustide /src folder) and place these contents with your credentials.
+```
+API_PORT=
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+DB_PORT=
+DB_NAME=
+AUTH_ROUTE=
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. Run this command in /api directory as well as the root directory.
+```bash
+npm install --legacy-peer-deps 
 ```
+
+3. Run this command in /api directory
+```bash
+npm start
+```
+
+4. Run this command in root directory
+```bash
+npm run dev
+```
+
+## Build as an electron app for MacOS/Windows
+To be released soon.
