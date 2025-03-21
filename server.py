@@ -29,10 +29,10 @@ def upload_folder():
         # Ensure directories exist before saving
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         file.save(save_path)
-    
-    if requirements_exist: 
+
+    if requirements_exist:
         return jsonify({"message": "Files uploaded successfully, requirements.txt found"}), 200
-    
+
     return jsonify({"message": "Folder uploaded but requirements.txt is missing"}), 200
 
 
@@ -58,9 +58,9 @@ def get_uploaded_files():
 
 
 if __name__ == "__main__":
-    process = subprocess.Popen('../../dicedb-cli/dicedb-cli', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
-    process.stdin.write('SET k v\n')
-    process.stdin.write('GET k\n')
-    process.stdin.flush()  # Ensure commands are sent
-    
-    # app.run(host="0.0.0.0", port=5001, debug=True)
+    # process = subprocess.Popen('../../dicedb-cli/dicedb-cli', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+    # process.stdin.write('SET k v\n')
+    # process.stdin.write('GET k\n')
+    # process.stdin.flush()  # Ensure commands are sent
+
+    app.run(host="0.0.0.0", port=5001, debug=True)
