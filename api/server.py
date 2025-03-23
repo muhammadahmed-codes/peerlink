@@ -78,10 +78,10 @@ def run_code():
 
     try:
         result = subprocess.run(
-            ["python3", "-c", code],
+            ["python", "-c", code],
             capture_output=True,
             text=True,
-            timeout=5
+            timeout=50000
         )
         return jsonify({"output": result.stdout, "error": result.stderr})
 

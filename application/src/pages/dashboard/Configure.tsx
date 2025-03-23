@@ -1,4 +1,5 @@
 import DashboardLayout from "./layout";
+import CodeSection from "@/components/CodeSection";
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -58,9 +59,10 @@ export default function Configure() {
                             <Button>Deploy</Button>
                         </CardFooter>
                     </Card> */}
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                    {/* <div className="grid w-full max-w-sm items-center gap-1.5">
                         <FolderUpload />
-                    </div>
+                    </div> */}
+                    <CodeSection/>
             </DashboardLayout>
         </>
     )
