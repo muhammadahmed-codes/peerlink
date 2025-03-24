@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.9",
+    "pg": "^8.14.0"
+  },
+  "name": "api-peerlink",
+  "version": "0.1.0",
+  "main": "peerlink-main.js",
+  "scripts": {
+    "start": "nodemon peerlink-main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Muhammad Ahmed",
+  "license": "MIT",
+  "description": ""
+}

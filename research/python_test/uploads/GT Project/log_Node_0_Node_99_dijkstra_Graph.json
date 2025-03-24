@@ -1,0 +1,7 @@
+{
+    "Node_0_Node_99_dijkstra_Graph": {
+        "cost": Infinity,
+        "path": [],
+        "all_paths": []
+    }
+}

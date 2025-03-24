@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "uv18eQzm3ZA=",
+  "success": true,
+  "projectFilePath": "/Users/muhammadahmed/Documents/PeerLink/SystemInfoAPI/SystemInfoAPI.csproj",
+  "expectedPackageFiles": [
+    "/Users/muhammadahmed/.nuget/packages/microsoft.aspnetcore.openapi/9.0.1/microsoft.aspnetcore.openapi.9.0.1.nupkg.sha512",
+    "/Users/muhammadahmed/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512",
+    "/Users/muhammadahmed/.nuget/packages/system.codedom/9.0.2/system.codedom.9.0.2.nupkg.sha512",
+    "/Users/muhammadahmed/.nuget/packages/system.management/9.0.2/system.management.9.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

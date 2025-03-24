@@ -1,0 +1,17 @@
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/Distribute.csproj.AssemblyReference.cache
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/Distribute.GeneratedMSBuildEditorConfig.editorconfig
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/Distribute.AssemblyInfoInputs.cache
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/Distribute.AssemblyInfo.cs
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/Distribute.csproj.CoreCompileInputs.cache
+/Users/muhammadahmed/Documents/PeerLink/Distribute/bin/Debug/net9.0/Distribute
+/Users/muhammadahmed/Documents/PeerLink/Distribute/bin/Debug/net9.0/Distribute.deps.json
+/Users/muhammadahmed/Documents/PeerLink/Distribute/bin/Debug/net9.0/Distribute.runtimeconfig.json
+/Users/muhammadahmed/Documents/PeerLink/Distribute/bin/Debug/net9.0/Distribute.dll
+/Users/muhammadahmed/Documents/PeerLink/Distribute/bin/Debug/net9.0/Distribute.pdb
+/Users/muhammadahmed/Documents/PeerLink/Distribute/bin/Debug/net9.0/RabbitMQ.Client.dll
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/Distribute.csproj.Up2Date
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/Distribute.dll
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/refint/Distribute.dll
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/Distribute.pdb
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/Distribute.genruntimeconfig.cache
+/Users/muhammadahmed/Documents/PeerLink/Distribute/obj/Debug/net9.0/ref/Distribute.dll

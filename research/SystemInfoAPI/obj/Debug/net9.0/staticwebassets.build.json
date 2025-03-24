@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "GvTIv83ne/vJkTebYMcPt2cH097ObgaunQBHUivLTTM=",
+  "Source": "SystemInfoAPI",
+  "BasePath": "_content/SystemInfoAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
